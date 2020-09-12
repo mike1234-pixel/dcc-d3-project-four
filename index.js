@@ -85,7 +85,10 @@ queue().then((data, err) => {
   const [countiesData, educationData] = [data[0], data[1]];
 
   // create tooltip
-  const tooltip = d3.select(".vis-container").append("div").style("opacity", 0);
+  const tooltip = d3
+    .select("#tooltip-container")
+    .append("div")
+    .style("opacity", 0);
 
   svg
     .append("g")
