@@ -1,0 +1,9 @@
+body {
+  font-family: arial;
+}
+
+.county:hover {
+  fill: white;
+  stroke: #646464;
+  stroke-width: 2px;
+}
