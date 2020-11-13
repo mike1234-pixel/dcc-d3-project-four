@@ -128,25 +128,34 @@ queue().then((data, err) => {
     .on("mouseover", (d) => {
       tooltip.style("opacity", 0.9);
       tooltip.attr("id", "tooltip");
-      tooltip.html(() => {
-        var result = educationData.filter((obj) => {
-          return obj.fips == d.id;
-        });
-        if (result[0]) {
-          return (
-            result[0]["area_name"] +
-            ", " +
-            result[0]["state"] +
-            ": " +
-            result[0].bachelorsOrHigher +
-            "%"
-          );
-        }
-        //could not find a matching fips id in the data
-        return 0;
-      });
-      // tooltip.attr("data-education", result[0].bachelorsOrHigher);
+      // tooltip.attr("data-value", d.data.value);
+      tooltip
+        .html(() => {
+              var result = educationData.filter((obj) => {
+                return obj.fips == d.id;
+              });
+              if (result[0]) {
+                return (
+                  result[0]["area_name"] +
+                  ", " +
+                  result[0]["state"] +
+                  ": " +
+                  result[0].bachelorsOrHigher +
+                  "%"
+                );
+              }
+            }
+        )
+        .style("position", "absolute")
+        .style("background-color", "grey")
+        .style("padding", "10px");
+      tooltip.style("left", d3.event.pageX + 10 + "px");
+      tooltip.style("top", d3.event.pageY - 28 + "px"); // tooltip location = hover location
     })
+    .on("mouseout", (d) => {
+      tooltip.style("opacity", 0);
+    })
+
     .attr("data-education", (d) => {
       const result = educationData.filter((obj) => {
         return obj.fips == d.id;
